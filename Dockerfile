@@ -1,9 +1,5 @@
-FROM alpine:3.2
-
-RUN apk --update add curl && \
-    rm -rf /var/cache/apk/*
-
-ADD https://github.com/hashicorp/vault/releases/download/v0.2.0.rc1/linux_amd64.zip /tmp/vault.zip
-RUN cd /tmp && unzip vault.zip && mv vault /usr/local/bin/ && rm -rf /tmp/*
-
+FROM man:5000/alpine:3.2
+# vault: https://github.com/hashicorp/vault/releases
+ADD deps/vault-0.2.0.rc1.zip /tmp/vault.zip
+RUN cd /usr/local/bin/ && unzip /tmp/vault.zip && rm -rf /tmp/*
 ENTRYPOINT ["/usr/local/bin/vault"]
